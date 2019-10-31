@@ -2,8 +2,19 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 const productROutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+const {databaseUsername,databasePWD} = require('./config/config');
+
+// ======================= Connecting to the Database ==================
+mongoose.connect('mongodb+srv://' + databaseUsername + ':' + databasePWD + '@protrasys-admin-raot8.mongodb.net/test?retryWrites=true&w=majority',{useUnifiedTopology: true,useNewUrlParser: true},(err)=>{
+    if(err){
+      console.log("Error is Occured ! + "+err)
+    }else{
+      console.log("DB Connected")
+    }
+})
 
 // =================== Executing express like a function =====================
 const app = express();

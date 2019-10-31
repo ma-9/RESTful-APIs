@@ -4,7 +4,8 @@
   "description": "A RESTful Api (Building and learning through APIs)",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",
+    "start_local": "nodemon server.js"
   },
   "keywords": [
     "NodeJS",
@@ -17,7 +18,9 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongoose": "^5.7.7",
     "morgan": "^1.9.1"
   },
   "devDependencies": {
