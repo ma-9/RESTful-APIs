@@ -7,8 +7,13 @@ router.get('/',(req,res,next)=>{
 });
 
 router.post('/',(req,res,next)=>{
+    const Order = {
+        OrderID: req.body.orderID,
+        quantity: req.body.quantity
+    }
     res.status(201).json({
-        message: 'Orders was created'
+        message: 'Orders was created',
+        createdOrder: Order
     });
 });
 
