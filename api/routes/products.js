@@ -6,11 +6,26 @@ const Product = require('../models/products');
 // ================= Handling Requests =============
 router.get('/',(req,res,next)=>{
     Product.find()
+        .select('name price _id')
         .exec()
         .then((docs) => {
-            if(docs.length > 0){
+            const response = {
+                count: docs.length,
+                products: docs.map((doc) => {
+                    return {
+                        name: doc.name,
+                        price: doc.price,
+                        _id: doc._id,
+                        request: {
+                            type: 'GET',
+                            url: 'http://localhost:3000/products/'+doc._id
+                        }
+                    }
+                })
+            }
+            if(response.count > 0){
                 console.log("From Database" + docs);
-                res.status(200).json(docs);
+                res.status(200).json(response);
             }else{
                 console.log('No Products ');
                 res.status(400).json({
@@ -20,7 +35,7 @@ router.get('/',(req,res,next)=>{
         })
         .catch((err) => {
             console.log(err);
-            res.status(500).json({error:err});
+            res.status(500).json({error: err });
         });
 });
 
@@ -33,10 +48,19 @@ router.post('/',(req,res,next)=>{
     product
         .save()
         .then((result) => {
+            const response = {
+                message: 'Product Created Successfully !!',
+                name: result.name,
+                price: result.price,
+                _id: result._id,
+                request: {
+                    type: 'GET',
+                    url: 'http://localhost:3000/products/'+result._id
+                }
+            }
             console.log(result);
             res.status(201).json({
-                message: 'Hey, It is a POST request...',
-                CreatedProduct: result
+                CreatedProduct: response
             });
         })
         .catch((err) => {
@@ -49,11 +73,19 @@ router.post('/',(req,res,next)=>{
 router.get('/:ProductID',(req,res,next)=>{
     const id = req.params.ProductID;
     Product.findById(id)
+        .select('price name _id')
         .exec()
         .then((doc) => {
             if(doc){
                 console.log("From Database" + doc);
-                res.status(200).json(doc);
+                res.status(200).json({
+                    product: doc,
+                    request: {
+                        type: 'GET',
+                        description: 'To Get All Products Cick Below Link',
+                        url: 'http://localhost:3000/products'
+                    }
+                });
             }else{
                 console.log('404 Product Not Found ');
                 res.status(400).json({
@@ -76,8 +108,13 @@ router.patch('/:ProductID',(req,res,next)=>{
     Product.updateOne({_id: id},{ $set: updateOps})
         .exec()
         .then((result) => {
-            console.log(result);
-            res.status(200).json(result);
+            res.status(200).json({
+                message: 'Product Updated',
+                More: {
+                    updatedProduct: 'http://localhost:3000/products/'+id,
+                    seeAllProducts: 'http://localhost:3000/products'
+                }
+            });
         })
         .catch((err) => {
             console.log(err);
@@ -89,11 +126,28 @@ router.patch('/:ProductID',(req,res,next)=>{
 
 router.delete('/:ProductID',(req,res,next)=>{
     const id = req.params.ProductID;
-    Product.remove({_id:id})
+    Product.deleteOne({_id:id})
         .exec()
         .then((result) => {
             console.log('Product Deleted');
-            res.status(200).json(result);
+            if(result.deletedCount > 0){
+                res.status(200).json({
+                    message: 'Product Deleted',
+                    More: {
+                        Description: 'Click below to add new Product',
+                        typeOfRequest: 'POST (Must Required)',
+                        url: 'http://localhost:3000/products',
+                        body: {
+                            name: 'String',
+                            price: 'Number'
+                        }
+                    }
+                });
+            }else{
+                res.status(404).json({
+                    message: 'No Products found to Delete'
+                })
+            }
         })
         .catch((err) => {
             console.log(err);
