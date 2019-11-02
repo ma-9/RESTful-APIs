@@ -1,9 +1,10 @@
 {
-    "1": "Created RESTful API with Node JS",
-    "2": "Added More Routes to API",
-    "3": "Handling Errors and Improving the Project Setup",
-    "4": "Parsing the body and Handling the CORS (Cross-Origin Resource Sharing)",
-    "5": "MongoDB and Mongoose Setup && .env Setup with configuration folder",
-    "6": "Added Mongoose Validation",
-    "7": "Managing Orders with Mongoose"
+  "1": "Created RESTful API with Node JS",
+  "2": "Added More Routes to API",
+  "3": "Handling Errors and Improving the Project Setup",
+  "4": "Parsing the body and Handling the CORS (Cross-Origin Resource Sharing)",
+  "5": "MongoDB and Mongoose Setup && .env Setup with configuration folder",
+  "6": "Added Mongoose Validation",
+  "7": "Managing Orders with Mongoose",
+  "8": "Populating Queries with Mongoose"
 }

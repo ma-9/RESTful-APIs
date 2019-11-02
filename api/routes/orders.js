@@ -7,6 +7,7 @@ const Products = require("../models/products");
 router.get("/", (req, res, next) => {
   Orders.find()
     .select("_id product quantity")
+    .populate('product','name price')
     .exec()
     .then(result => {
       res.status(200).json({
@@ -73,6 +74,7 @@ router.post("/", (req, res, next) => {
 
 router.get("/:orderID", (req, res, next) => {
   Orders.findById(req.params.orderID)
+    .populate('product')
     .exec()
     .then(orders => {
       if (!orders) {
@@ -96,7 +98,9 @@ router.get("/:orderID", (req, res, next) => {
 
 router.delete("/:orderID", (req, res, next) => {
   const id = req.params.orderID;
-  Orders.deleteOne({ _id: id })
+  Orders.deleteOne({
+    _id: id
+  })
     .exec()
     .then(result => {
       if (!result) {
@@ -104,6 +108,7 @@ router.delete("/:orderID", (req, res, next) => {
           message: "there is no such Order to Delete, Kindly Check Order ID",
           fetchAll: "http://localhost:3000/orders/"
         });
+        return;
       }
       res.status(200).json({
         message: "Order Deleted Successfully",
