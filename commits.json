@@ -6,5 +6,6 @@
   "5": "MongoDB and Mongoose Setup && .env Setup with configuration folder",
   "6": "Added Mongoose Validation",
   "7": "Managing Orders with Mongoose",
-  "8": "Populating Queries with Mongoose"
+  "8": "Populating Queries with Mongoose",
+  "9": "Uploading an Image With Multer"
 }

@@ -27,6 +27,8 @@ mongoose.connect(
 // =================== Executing express like a function =====================
 const app = express();
 
+app.use('/uploads',express.static('uploads'))
+
 // ======================= Body Parser ===============================
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
