@@ -2,6 +2,8 @@
 const router = require("express").Router();
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { JWT_KEY } = require("../../config/config");
 
 // ============ Importing User Models ======================
 const Users = require("../models/user");
@@ -74,6 +76,46 @@ router.post("/signup", (req, res, next) => {
           }
         });
       }
+    });
+});
+
+router.post("/login", (req, res, next) => {
+  Users.findOne({ email: req.body.email })
+    .exec()
+    .then(result => {
+      if (result) {
+        bcrypt.compare(req.body.password, result.password, (err, user) => {
+          if (user) {
+            const token = jwt.sign(
+              {
+                email: result.email,
+                userID: result._id
+              },
+              JWT_KEY,
+              {
+                expiresIn: "1h",
+              }
+            );
+            return res.status(201).json({
+              message: "Auth Succeed",
+              token: token
+            });
+          } else {
+            return res.status(401).json({
+              message: "Auth Failed"
+            });
+          }
+        });
+      } else {
+        return res.status(401).json({
+          message: "Auth Failed"
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({
+        error: err
+      });
     });
 });
 
@@ -157,10 +199,10 @@ router.patch("/:userID", (req, res, next) => {
             }
           });
         })
-        .catch((err) => {
-            res.status(500).json({
-                error: err
-            })
+        .catch(err => {
+          res.status(500).json({
+            error: err
+          });
         });
     }
   });

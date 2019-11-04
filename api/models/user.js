@@ -6,7 +6,7 @@ const userSchema = mongoose.Schema({
     type: mongoose.Schema.Types.String,
     required: true,
     unique: true,
-    match: /^([a-z0-9\.-]+)@([a-z0-9-]+).([a-z]{2,8})(.[a-z]{2,8})/
+    match: /^([a-z0-9\.-]+)@([a-z0-9-]+).([a-z]{2,8}).([a-z]{2,8})/
   },
   password: { type: mongoose.Schema.Types.String, required: true }
 });

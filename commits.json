@@ -9,5 +9,6 @@
   "7": "Managing Orders with Mongoose",
   "8": "Populating Queries with Mongoose",
   "9": "Uploading an Image With Multer",
-  "10": "Adding User Signup"
+  "10": "Adding User Signup",
+  "11": "Adding User Login and JWT (JSON Web Token) Generated"
 }
