@@ -1,5 +1,5 @@
 {
-  "name": "restful-api",
+  "name": "restful-apis",
   "version": "0.0.1",
   "description": "A RESTful Api (Building and learning through APIs)",
   "main": "server.js",
