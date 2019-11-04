@@ -68,7 +68,7 @@ router.get("/", (req, res, next) => {
         res.status(200).json(response);
       } else {
         console.log("No Products ");
-        res.status(400).json({
+        res.status(404).json({
           message: "No Products"
         });
       }
@@ -170,8 +170,8 @@ router.delete("/:ProductID", (req, res, next) => {
   Product.deleteOne({ _id: id })
     .exec()
     .then(result => {
-      console.log("Product Deleted");
       if (result.deletedCount > 0) {
+        console.log("Product Deleted");
         res.status(200).json({
           message: "Product Deleted",
           More: {

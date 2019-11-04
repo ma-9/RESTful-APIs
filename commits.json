@@ -1,4 +1,5 @@
 {
+  "REST": "REpresentational State Transfer",
   "1": "Created RESTful API with Node JS",
   "2": "Added More Routes to API",
   "3": "Handling Errors and Improving the Project Setup",
@@ -7,5 +8,6 @@
   "6": "Added Mongoose Validation",
   "7": "Managing Orders with Mongoose",
   "8": "Populating Queries with Mongoose",
-  "9": "Uploading an Image With Multer"
+  "9": "Uploading an Image With Multer",
+  "10": "Adding User Signup"
 }

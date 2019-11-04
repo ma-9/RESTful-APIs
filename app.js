@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const productROutes = require("./api/routes/products");
 const orderRoutes = require("./api/routes/orders");
+const userRoutes = require("./api/routes/user");
 const { databaseUsername, databasePWD } = require("./config/config");
 
 // ======================= Connecting to the Database ==================
@@ -14,7 +15,7 @@ mongoose.connect(
     ":" +
     databasePWD +
     "@protrasys-admin-raot8.mongodb.net/test?retryWrites=true&w=majority",
-  { useUnifiedTopology: true, useNewUrlParser: true },
+  { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true },
   err => {
     if (err) {
       console.log("Error is Occured ! + " + err);
@@ -27,7 +28,7 @@ mongoose.connect(
 // =================== Executing express like a function =====================
 const app = express();
 
-app.use('/uploads',express.static('uploads'))
+app.use("/uploads", express.static("uploads"));
 
 // ======================= Body Parser ===============================
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -53,6 +54,7 @@ app.use((req, res, next) => {
 // =================== Handling a request ================================
 app.use("/products", productROutes);
 app.use("/orders", orderRoutes);
+app.use("/users", userRoutes);
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");
