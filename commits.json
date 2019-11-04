@@ -10,5 +10,7 @@
   "8": "Populating Queries with Mongoose",
   "9": "Uploading an Image With Multer",
   "10": "Adding User Signup",
-  "11": "Adding User Login and JWT (JSON Web Token) Generated"
+  "11": "Adding User Login and JWT (JSON Web Token) Generated",
+  "12": "JWT Route Protection using CheckAuth (Customized JWT Protection)",
+  "13": "Addding Controller to the Services"
 }
